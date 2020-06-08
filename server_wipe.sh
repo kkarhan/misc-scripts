@@ -4,7 +4,7 @@
 
 echo	"╔═══════════════════════════════════════════════════════════════════════╗"
 echo	"║ Linux Server Wiping Script                                            ║"
-echo	"║ © 2020 Kevin Karhan   -  https://github.com/kkarhan/misc-scripts      ║"
+echo	"║ © 2020 Kevin Karhan   -  kevin.karhan@jtl-software.com                ║"
 echo	"║ made for JTL Software -  https://www.jtl-software.de/                 ║"
 echo 	"║ licensed under GPLv3                                                  ║"
 echo	"╠═══════════════════════════════════════════════════════════════════════╣"
@@ -35,7 +35,7 @@ select yn in "Yes" "No"; do
 		No ) echo "ABORTED!"; exit;;
     esac
 done
-#   Yes/No security questiong
+#   Yes/No security question
 
 mapfile -t my_array < <(lsblk -e7 -d -io NAME -n)
 
