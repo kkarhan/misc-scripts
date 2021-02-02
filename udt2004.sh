@@ -16,12 +16,12 @@ echo	"╚═══════════════════════�
 echo 	"update preroll..."
 sudo apt-get update && sudo apt-get dist-upgrade && sudo apt-get autoremove && sudo apt-get autoclean
 echo	"installing necessary dependencies..."
-sudo apt-get install snapd wget curl
+sudo apt install snapd wget curl
 
 echo	"installing enpass..."
 echo "deb https://apt.enpass.io/ stable main" > /etc/apt/sources.list.d/enpass.list
 wget -O - https://apt.enpass.io/keys/enpass-linux.key | apt-key add -
-sudo apt-get update && sudo apt-get install enpass 
+sudo apt update && sudo apt-get install enpass 
 
 echo	"installing anydesk..."
 wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | apt-key add -
@@ -49,19 +49,22 @@ echo 'deb https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs/ vscodium mai
 sudo apt update && sudo apt install codium 
 
 echo	"installing vlc..."
-sudo apt-get install vlc
+sudo apt install vlc
 
 echo	"installing remmina..."
-sudo apt-get install remmina
+sudo apt install remmina
 
 echo	"installing synaptic..."
-sudo apt-get install synaptic
+sudo apt install synaptic
 
 echo	"installing window shuffler..."
-sudo apt-get install budgie-window-shuffler
+sudo apt install budgie-window-shuffler
 
 echo	"installing vpn..."
-sudo apt-get install openvpn* network-manager-openvpn* network-manager-ssh 
+sudo apt install openvpn* network-manager-openvpn* network-manager-ssh 
+
+echo	"installing SSH"
+sudo apt install openssh-client openssh-server
 
 echo	"purging unsafe bs..."
 sudo apt-get purge pptp* network-manager-pptp*
