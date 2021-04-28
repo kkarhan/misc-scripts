@@ -1,0 +1,49 @@
+mac2ip
+Find a device's IP based off it's MAC Adress.
+
+Command Structure:
+	nmap -sP $NETWORKIPSUBNET >/dev/null && arp -an | grep  $MACADDRESS  | awk '{print $2}' | sed 's/[()]//g'
+
+SAMPLE:
+	nmap -sP 192.168.0.0/24 >/dev/null && arp -an | grep  01:23:45:67:89:af  | awk '{print $2}' | sed 's/[()]//g'
+SAMPLE OUTPUT:
+	192.168.0.2
+
+
+
+
+
+TODO:
+
+	Parsing of arguments
+		i.e. mac2ip $NETWORKIPSUBNET $MACADDRESS
+		See:
+			https://linuxhandbook.com/bash-arguments/
+
+
+	Autodetect current $NETWORKIPSUBNET
+		[optional --autonetdetect or -a or if $NETWORKIPSUBNET is not specified]
+		unless $NETWORKIPSUBNET is specified, it'll detect if the following adress spaces are used by any interface and thus default to it's subnet.
+			This will only work for RFC specified subnets
+				RFC1918
+					10/8
+					172.16/12
+					192.168/16
+				RFC6598
+					100.64/10
+				RFC5735
+					169.254/16
+
+
+	Restrict to interface
+		[optional --link & -l $INTERFACE argument]
+			i.e. mac2ip $NETWORKIPSUBNET $MACADDRESS -l $INTERFACE
+		where $INTERFACE is the device as listed in ifconfig.
+			i.e. enx0123456789af
+
+
+	IPv6 Support and IPv6 network range autodetect
+		[optional --autonetdetect6 or -a6]
+			RFC specified subnets
+				RFC 4193
+					fc00::/7
