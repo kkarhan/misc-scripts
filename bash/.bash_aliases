@@ -34,10 +34,6 @@ alias cls='clear'
 alias dir='ls -ahl'
 ###	faster to type, DOS-alike commands
 
-alias aliasupdate='cd $HOME && && echo "backing up old bash_aliases" && mv ./.bash_aliases ./.bash_aliases.old && echo "downloading new version" && wget https://raw.githubusercontent.com/kkarhan/misc-scripts/master/bash/.bash_aliases && echo "done - closing terminal session" && exit'
-### Download the latest version of .bash_aliases from my GitHub
-### See: https://github.com/kkarhan/misc-scripts/blob/master/bash/.bash_aliases
-
 function isup() { ping -a -b -c 1 -D "$@"; }
 ###	Single Ping attempt to a specific host which has to be specified i.e. "isup duckduckgo.com"
 
