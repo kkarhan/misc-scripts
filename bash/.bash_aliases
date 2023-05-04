@@ -44,3 +44,6 @@ function mp3dl() { yt-dlp -x --audio-format mp3 "$@"; }
 function vdl() { yt-dlp "$@"; }
 ### download a video
 ### requires yt-dlp to be installed
+
+alias aliasupdate='./aliasupdate'
+## update aliases
