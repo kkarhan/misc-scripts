@@ -34,6 +34,8 @@ alias cls='clear'
 alias dir='ls -ahl'
 ###	faster to type, DOS-alike commands
 
+alias ding='echo -ne '\007''
+
 function isup() { ping -a -b -c 1 -D "$@"; }
 ###	Single Ping attempt to a specific host which has to be specified i.e. "isup duckduckgo.com"
 
@@ -46,4 +48,24 @@ function vdl() { yt-dlp "$@"; }
 ### requires yt-dlp to be installed
 
 alias aliasupdate='./aliasupdate'
-## update aliases
+### update aliases
+
+alias pubip='curl ipinfo.io/ip ; echo;'
+### find public IP adress
+### see:    https://stackoverflow.com/questions/14594151/methods-to-detect-public-ip-address-in-bash/14594304#14594304
+### NOTE:   Lack of connectivity will result in a 404 error!
+
+alias pub4='curl http://ip4only.me/api/ ; echo;'
+### find public IPv4 adress
+### see:    http://ip4only.me/
+### NOTE:   Lack of IPv4 connectivity will result in a 404 error!
+
+alias pub6='curl https://ip6only.me/api/ ; echo;'
+### find public IPv6 adress
+### see:    https://ip6only.me/
+### NOTE:   Lack of IPv6 connectivity will result in a 404 error!
+
+alias pub5='curl http://whatismyv6.com/api/ ; echo;'
+### find public IPv4 or IPv6 based off OS & Network preference
+### see:    http://whatismyv6.com/
+### NOTE:   Lack of connectivity will result in a 404 error!
