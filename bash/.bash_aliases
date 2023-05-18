@@ -35,6 +35,10 @@ alias dir='ls -ahl'
 ###	faster to type, DOS-alike commands
 
 alias ding='echo -ne '\007''
+### Create a Beep [will only make a system beep if output is redirected to a local or unused console]
+
+alias unixtime='date +%s'
+### Output Unixtime
 
 function isup() { ping -a -b -c 1 -D "$@"; }
 ###	Single Ping attempt to a specific host which has to be specified i.e. "isup duckduckgo.com"
