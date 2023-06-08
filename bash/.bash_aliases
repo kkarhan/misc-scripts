@@ -3,6 +3,8 @@
 ##	Random Password Generator Functions
 ###	128 digits
 alias pw128='</dev/urandom tr -dc '0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz@!?~+#-_' | head -c128; echo;'
+###	126 digits
+alias pw126='< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-126};echo;'
 ###	64 digits
 alias pw64='</dev/urandom tr -dc '0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz@!?~+#-_' | head -c64; echo;'
 ###	62 digits
