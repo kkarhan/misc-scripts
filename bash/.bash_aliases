@@ -1,6 +1,8 @@
 #	Bash Aliases
 
 ##	Random Password Generator Functions
+###	128 digits
+alias pw128='</dev/urandom tr -dc '0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz@!?~+#-_' | head -c128; echo;'
 ###	64 digits
 alias pw64='</dev/urandom tr -dc '0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz@!?~+#-_' | head -c64; echo;'
 ###	62 digits
