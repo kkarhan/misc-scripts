@@ -12,7 +12,7 @@ wget https://raw.githubusercontent.com/kkarhan/misc-scripts/master/bash/.bash_al
 wget https://raw.githubusercontent.com/kkarhan/misc-scripts/master/bash/.aliasupdate.sh
 chmod +x ./aliasupdate.sh
 echo "done - closing terminal session..."
-### Download the latest version of .bash_aliases from my GitHub
+## Download the latest version of .bash_aliases from my GitHub
 ### See: https://github.com/kkarhan/misc-scripts/blob/master/bash/.bash_aliases
 
 exit
