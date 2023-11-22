@@ -1,0 +1,4 @@
+#   .gitignore
+##  IDE settings
+.idea
+.idea/*
