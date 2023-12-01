@@ -1,4 +1,6 @@
-#   .gitignore
-##  IDE settings
+# .gitignore
+## IDE Files
 .idea
-.idea/*
+out
+gen
+*.xml
