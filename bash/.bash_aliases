@@ -75,6 +75,16 @@ function mount-luks() { sudo cryptsetup luksOpen /dev/$1 $2 && sudo mount /dev/m
 
 ###	---
 
+##	Upload files and send notifications
+function upload() { curl -T $1 https://oshi.at ; }
+###	Uploads file $1 to oshi.at
+###	See:	https://oshi.at/cmd
+function notify() {curl -d "$1" ntfy.sh/$2 ; }
+###	Sends message ""$1" to ntfy.sh/$2
+###	See:	https://docs.ntfy.sh/publish
+
+###	---
+
 ##	Download Videos and Audio
 function mp3dl() { yt-dlp -x --audio-format mp3 "$@"; }
 ###	download a video's audio as mp3
