@@ -42,6 +42,10 @@ alias ding='echo -ne '\007''
 alias unixtime='date +%s'
 ### Output Unixtime
 
+alias enc='$HOME/.apps/enc/enc'
+### Addning enc to the toolchain
+### See:    https://github.com/life4/enc    for details
+### See:    https://github.com/life4/enc/releases/latest    for Downloads
 
 function encrypt() {cat "$1" | enc encrypt --key "$2" | enc armor > $3 ; }
 ### Encrypts file $1 with PGP pubkey in file $2 and saves it as ASCII-armoured message in file $3
