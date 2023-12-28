@@ -1,5 +1,24 @@
 #	Bash Aliases
 
+###	---
+
+##	Minor shortcuts to improve speed
+alias cls='clear'
+alias dir='ls -ahl'
+###	faster to type, DOS-alike commands
+alias ding='echo -ne '\007''
+###	Create a Beep [will only make a system beep if output is redirected to a local or unused console]
+alias unixtime='date +%s'
+###	Output Unixtime
+
+###	---
+
+##	Useful commands
+alias flushcache='sudo sh -c "sync; echo 3 > /proc/sys/vm/drop_caches"'
+###	Flush the RAM forcefully
+###	See:	https://www.cyberithub.com/drop-flush-clear-cache-memory-ram-in-linux/
+
+### ---
 
 ##	Random Password Generator Functions
 ###	128 digits
@@ -26,79 +45,66 @@ alias rtan='< /dev/urandom tr -dc 0-9 | head -c${1:-8};echo;'
 alias rpin='< /dev/urandom tr -dc 0-9 | head -c${1:-4};echo;'
 ###	see:	https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/
 
+###	---
 
-##	Useful commands
-alias flushcache='sudo sh -c "sync; echo 3 > /proc/sys/vm/drop_caches"'
-###	Flush the RAM forcefully
-###		See:	https://www.cyberithub.com/drop-flush-clear-cache-memory-ram-in-linux/
-
-alias cls='clear'
-alias dir='ls -ahl'
-###	faster to type, DOS-alike commands
-
-alias ding='echo -ne '\007''
-### Create a Beep [will only make a system beep if output is redirected to a local or unused console]
-
-alias unixtime='date +%s'
-### Output Unixtime
-
+##	Cryptographic Functions and Routines often used
 alias enc='$HOME/.apps/enc/enc'
-### Addning enc to the toolchain
-### See:    https://github.com/life4/enc    for details
-### See:    https://github.com/life4/enc/releases/latest    for Downloads
+###	Addning enc to the toolchain
+###	See:	https://github.com/life4/enc	for details
+###	See:	https://github.com/life4/enc/releases/latest	for Downloads
+function encrypt() { cat "$1" | enc encrypt --key "$2" | enc armor > $3 ; }
+###	Encrypts file $1 with PGP pubkey in file $2 and saves it as ASCII-armoured message in file $3
+###	See:	https://github.com/life4/enc#encryptdecrypt-with-a-key
+function decrypt() { cat "$1" | enc dearmor | enc decrypt --key "$2" > $3 ; }
+###	Decrypts file $1 with PGP privkey in file $2 and saves it as plaintext message in file $3
+###	See:	https://github.com/life4/enc#use-public-key-generate-and-encrypt
 
-function encrypt() {cat "$1" | enc encrypt --key "$2" | enc armor > $3 ; }
-### Encrypts file $1 with PGP pubkey in file $2 and saves it as ASCII-armoured message in file $3
-### See:    https://github.com/life4/enc#encryptdecrypt-with-a-key
+###	---
 
-function decrypt() {cat "$1" | enc dearmor | enc decrypt --key "$2" > $3 ; }
-### Decrypts file $1 with PGP privkey in file $2 and saves it as plaintext message in file $3
-### See:    https://github.com/life4/enc#use-public-key-generate-and-encrypt
-
-function isup() { ping -a -b -c 1 -D "$@"; }
-###	Single Ping attempt to a specific host which has to be specified i.e. "isup duckduckgo.com"
-### This is done to see if a host "is up"...
-
+##	Download Videos and Audio
 function mp3dl() { yt-dlp -x --audio-format mp3 "$@"; }
 ###	download a video's audio as mp3
-### requires yt-dlp & ffmpeg to be installed
-
+###	requires yt-dlp & ffmpeg to be installed
 function vdl() { yt-dlp "$@"; }
-### download a video
-### requires yt-dlp to be installed
+###	download a video
+###	requires yt-dlp to be installed
 
+###	---
 
+#	Update the .bash_aliases file
 alias aliasupdate='./aliasupdate.sh'
-### update aliases
+###	update aliases
 
+###	---
 
+#   Connectivity Diagnostics
+function isup() { ping -a -b -c 1 -D "$@"; }
+###	Single Ping attempt to a specific host which has to be specified i.e. "isup duckduckgo.com"
+###	This is done to see if a host "is up"...
 alias pubip='curl https://wtfismyip.com/text ; echo;'
-### find public IP adress
-### NOTE:   Lack of connectivity will result in a 404 error!
-### alternative Service:    ipinfo.io/ip
-### see:    https://stackoverflow.com/questions/14594151/methods-to-detect-public-ip-address-in-bash/14594304#14594304
-
+###	find public IP adress
+###	NOTE:	Lack of connectivity will result in a 404 error!
+###	alternative Service:	ipinfo.io/ip
+###	see:	https://stackoverflow.com/questions/14594151/methods-to-detect-public-ip-address-in-bash/14594304#14594304
 alias pub4='curl http://ip4only.me/api/ ; echo;'
-### find public IPv4 adress
-### see:    http://ip4only.me/
-### NOTE:   Lack of IPv4 connectivity will result in a 404 error!
-
+###	find public IPv4 adress
+###	see:	http://ip4only.me/
+###	NOTE:	Lack of IPv4 connectivity will result in a 404 error!
 alias pub5='curl http://api64.ipify.org ; echo;'
-### find public IPv4 or IPv6 based off OS & Network preference
-### see:    https://www.ipify.org/
-### NOTE:   Lack of connectivity will result in a 404 error!
-
+###	find public IPv4 or IPv6 based off OS & Network preference
+###	see:	https://www.ipify.org/
+###	NOTE:	Lack of connectivity will result in a 404 error!
 alias pub6='curl https://ip6only.me/api/ ; echo;'
-### find public IPv6 adress
-### see:    https://ip6only.me/
-### NOTE:   Lack of IPv6 connectivity will result in a 404 error!
+###	find public IPv6 adress
+###	see:	https://ip6only.me/
+###	NOTE:	Lack of IPv6 connectivity will result in a 404 error!
 
+###	---
 
-
-## ---
-
-##  Distro-Specific Parts
-### Ubuntu
+##	Distro-Specific Parts
+###	Ubuntu
 alias ubdate='sudo apt-get update'
 alias ubgrade='sudo apt-get dist-upgrade && sudo apt-get autoremove && sudo apt-get autoclean && sudo snap refresh'
 ###	Update the System and Packages on Ubuntu - based distros
+
+###	---
