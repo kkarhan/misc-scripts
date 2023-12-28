@@ -41,11 +41,10 @@ mapfile -t my_array < <(lsblk -e7 -d -io NAME -n)
 
 for i in "${my_array[@]}"
 do
-    shred -f -n 1 -v -z /dev/$i
-    echo    "/dev/$i nuked!"
-    echo    " "
+	shred -f -n 1 -v -z /dev/$i
+	echo    "/dev/$i nuked!"
+	echo    " "
 done
-
 #   wipe each detected disk [physical block device] twice with shred & output progress
 
 echo    " "
@@ -54,10 +53,11 @@ echo    "Do you wish to reboot the system?"
 #   reboot question
 
 select yn in "Yes" "No"; do
-    case $yn in
-        Yes ) echo "rebooting"; break;;
+	case $yn in
+		Yes ) echo "rebooting"; break;;
 		No ) echo "done"; exit;;
-    esac
+	esac
 done
-
-sudo reboot && exit 
+sudo reboot && exit
+#	Reboots it yes,
+#	Quits the script if no

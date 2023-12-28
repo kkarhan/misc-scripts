@@ -131,7 +131,7 @@ touch $HOME/net-analysis.log
 	echo	"Running speedtests..."
 	echo	"1/2"
 	echo	"	"
-	speedtest -v -s 3585 -b -P 8 -p no
+	speedtest -v -s 32412 -b -P 8 -p no
 #	This will add additional info and make the test repeatable in the first run.
 #	Hardcoded server "3585" is from Leaseweb, located in Frankfurt a.M., Germany.
 	echo	"─────────────────────────────────────────────────────────────────────────"
