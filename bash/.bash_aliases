@@ -61,7 +61,7 @@ function decrypt() { cat "$1" | enc dearmor | enc decrypt --key "$2" > $3 ; }
 function sign() { cat $1 | enc sig create --key $2 | enc sig armor > $1.sig.asc ; }
 ###	Signs file $1 with key $2 and saves the signature as $1.sig.asc
 ###	See:	https://github.com/life4/enc#sign
-function verify() cat $1 | enc sig verify --key $2 -- signature $3 ; }
+function verify() { cat $1 | enc sig verify --key $2 -- signature $3 ; }
 ###	Verifies file $1 against key $2 and signature $3
 ###	See:	https://github.com/life4/enc#verify-signature
 function keygen() { enc key generate -b 8192 -c "$1" -e "$2" -n "$3" --ttl "128y" | enc armor > $2.seckey.asc && echo '$2.seckey.asc generated!' && cat $2.seckey.asc | enc dearmor | enc key public | enc armor > $2.pubkey.asc && echo 'pubkey is $2.pubkey.asc' ; }
