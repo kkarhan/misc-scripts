@@ -58,6 +58,11 @@ function encrypt() { cat "$1" | enc encrypt --key "$2" | enc armor > $3 ; }
 function decrypt() { cat "$1" | enc dearmor | enc decrypt --key "$2" > $3 ; }
 ###	Decrypts file $1 with PGP privkey in file $2 and saves it as plaintext message in file $3
 ###	See:	https://github.com/life4/enc#use-public-key-generate-and-encrypt
+function keygen() { enc key generate -b 8192 -c "$1" -e "$2" -n "$3" --ttl "128y" | enc armor > $2.sec.key.asc && echo '$2.sec.key.asc generated!' && cat $2.sec.key.asc | enc dearmor | enc key public | enc armor > $2.pub.key.asc && echo 'pubkey is $2.pub.key.asc' ; }
+###	Generates public-private keypair
+###	See:	https://github.com/life4/enc#generate-a-key
+### And also extracts public key and shoves it into a seperate file
+###	See:	https://github.com/life4/enc#use-public-key-generate-and-encrypt
 
 ###	---
 
