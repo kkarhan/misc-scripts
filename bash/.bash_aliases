@@ -69,7 +69,7 @@ function keygen() { enc key generate -b 8192 -c "$1" -e "$2" -n "$3" --ttl "128y
 ###	See:	https://github.com/life4/enc#generate-a-key
 ### And also extracts public key and shoves it into a seperate file: $2.pubkey.asc
 ###	See:	https://github.com/life4/enc#use-public-key-generate-and-encrypt
-function mount-luks() {sudo cryptsetup luksOpen /dev/$1 $2 && sudo mount /dev/mapper/$2 /media/$USER/$2 && echo '/dev/$1 has been mounted on /media/$USER/$2' ; }
+function mount-luks() { sudo cryptsetup luksOpen /dev/$1 $2 && sudo mount /dev/mapper/$2 /media/$USER/$2 && echo '/dev/$1 has been mounted on /media/$USER/$2' ; }
 ###	Mount & unlock LUKS partition named $2 located on /dev/$1 to /media/$USER/$2
 ###	This is vital for encrypted drives on servers that won't e automounted for security reasons!
 
