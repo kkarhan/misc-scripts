@@ -52,17 +52,17 @@ alias enc='$HOME/.apps/enc/enc'
 ###	Addning enc to the toolchain
 ###	See:	https://github.com/life4/enc	for details
 ###	See:	https://github.com/life4/enc/releases/latest	for Downloads
-function encrypt() { cat "$1" | enc encrypt --key "$2" | enc armor > $3 ; }
-###	Encrypts file $1 with PGP pubkey in file $2 and saves it as ASCII-armoured message in file $3
+function encrypt() { cat "$1" | enc encrypt --key "$2" | enc armor > "$1.encrypted.asc" ; }
+###	Encrypts file $1 with PGP pubkey in file $2 and saves it as ASCII-armoured message in file $1.encrypted.pgp
 ###	See:	https://github.com/life4/enc#encryptdecrypt-with-a-key
-function decrypt() { cat "$1" | enc dearmor | enc decrypt --key "$2" > $3 ; }
-###	Decrypts file $1 with PGP privkey in file $2 and saves it as plaintext message in file $3
+function decrypt() { cat "$1" | enc dearmor | enc decrypt --key "$2" > $1.decrypted ; }
+###	Decrypts file $1 with PGP privkey in file $2 and saves it as plaintext message in file $1.decrypted
 ###	See:	https://github.com/life4/enc#use-public-key-generate-and-encrypt
-function sign() { cat $1 | enc sig create --key $2 | enc sig armor > $1.sig.asc ; }
-###	Signs file $1 with key $2 and saves the signature as $1.sig.asc
+function sign() { cat $1 | enc sig create --key $2 | enc sig armor > $1.sig ; }
+###	Signs file $1 with key $2 and saves the signature as $1.sig
 ###	See:	https://github.com/life4/enc#sign
-function verify() { cat $1 | enc sig verify --key $2 -- signature $3 ; }
-###	Verifies file $1 against key $2 and signature $3
+function verify() { cat $1 | enc sig verify --key $2 --signature $1.sig ; }
+###	Verifies file $1 against key $2 and signature $1.sig
 ###	See:	https://github.com/life4/enc#verify-signature
 function keygen() { enc key generate -b 8192 -c "$1" -e "$2" -n "$3" --ttl "128y" | enc armor > $2.seckey.asc && echo '$2.seckey.asc generated!' && cat $2.seckey.asc | enc dearmor | enc key public | enc armor > $2.pubkey.asc && echo 'pubkey is $2.pubkey.asc' ; }
 ###	Generates public-private keypair with comment $1, email $2 name $3 and shoves that into $2.seckey.asc
