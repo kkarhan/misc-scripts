@@ -21,6 +21,8 @@ alias flushcache='sudo sh -c "sync; echo 3 > /proc/sys/vm/drop_caches"'
 ### ---
 
 ##	Random Password Generator Functions
+###	random UUID
+alias uuid='cat /proc/sys/kernel/random/uuid'
 ###	128 digits
 alias pw128='</dev/urandom tr -dc '0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz@!?~+#-_' | head -c128; echo;'
 ###	126 digits
@@ -61,7 +63,7 @@ function decrypt() { cat "$1" | enc dearmor | enc decrypt --key "$2" > $1.decryp
 function sign() { cat $1 | enc sig create --key $2 | enc sig armor > $1.sig ; }
 ###	Signs file $1 with key $2 and saves the signature as $1.sig
 ###	See:	https://github.com/life4/enc#sign
-function verify() { cat $1 | enc sig verify --key $2 --signature $1.sig ; }
+function verify() { cat $1 | enc sig verify --key $2 -- signature $1.sig ; }
 ###	Verifies file $1 against key $2 and signature $1.sig
 ###	See:	https://github.com/life4/enc#verify-signature
 function keygen() { enc key generate -b 8192 -c "$1" -e "$2" -n "$3" --ttl "128y" | enc armor > $2.seckey.asc && echo '$2.seckey.asc generated!' && cat $2.seckey.asc | enc dearmor | enc key public | enc armor > $2.pubkey.asc && echo 'pubkey is $2.pubkey.asc' ; }
