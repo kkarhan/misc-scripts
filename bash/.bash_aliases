@@ -1,24 +1,30 @@
 #	Bash Aliases
 
+
 ###	---
+
 
 ##	Minor shortcuts to improve speed
 alias cls='clear'
 alias dir='ls -ahl'
 ###	faster to type, DOS-alike commands
-alias ding='echo -ne '\007''
+function ding() { echo -ne '\007'; }
 ###	Create a Beep [will only make a system beep if output is redirected to a local or unused console]
 alias unixtime='date +%s'
 ###	Output Unixtime
 
+
 ###	---
+
 
 ##	Useful commands
 alias flushcache='sudo sh -c "sync; echo 3 > /proc/sys/vm/drop_caches"'
 ###	Flush the RAM forcefully
 ###	See:	https://www.cyberithub.com/drop-flush-clear-cache-memory-ram-in-linux/
 
+
 ### ---
+
 
 ##	Random Password Generator Functions
 ###	random UUID
@@ -40,14 +46,28 @@ alias pw16='</dev/urandom tr -dc '0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRr
 ###	14 digits
 alias pw14='< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-14};echo;'
 ##	Random 8 digit One Time Password
-alias rotp='< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-8};echo;'
+alias rotp='< /dev/urandom tr -dc A-Z-a-z-0-9 | head -c${1:-8};echo;'
 ##	Random 8 digit TAN
 alias rtan='< /dev/urandom tr -dc 0-9 | head -c${1:-8};echo;'
 ##	Random 4 digit PIN
 alias rpin='< /dev/urandom tr -dc 0-9 | head -c${1:-4};echo;'
 ###	see:	https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/
 
+
 ###	---
+
+
+##	Checksumming
+function md5() { md5sum "$1" | head -c 32; echo; }
+###	MD-5 Checksum
+function sha1() { sha1sum "$1" | head -c 40; echo; }
+###	SHA-1 Checksum
+function sha256() { sha256sum "$1" | head -c 64; echo; }
+###	SHA-256 Checksum
+
+
+###	---
+
 
 ##	Cryptographic Functions and Routines often used
 alias enc='$HOME/.apps/enc/enc'
@@ -75,7 +95,9 @@ function mount-luks() { sudo cryptsetup luksOpen /dev/$1 $2 && sudo mount /dev/m
 ###	Mount & unlock LUKS partition named $2 located on /dev/$1 to /media/$USER/$2
 ###	This is vital for encrypted drives on servers that won't e automounted for security reasons!
 
+
 ###	---
+
 
 ##	Upload files and send notifications
 function upload() { curl -T $1 https://oshi.at ; }
@@ -85,7 +107,9 @@ function notify() { curl -d "$1" ntfy.sh/$2 ; }
 ###	Sends message ""$1" to ntfy.sh/$2
 ###	See:	https://docs.ntfy.sh/publish
 
+
 ###	---
+
 
 ##	Download Videos and Audio
 function mp3dl() { yt-dlp -x --audio-format mp3 "$@"; }
@@ -95,7 +119,9 @@ function vdl() { yt-dlp "$@"; }
 ###	download a video
 ###	requires yt-dlp to be installed
 
+
 ###	---
+
 
 #	Update the .bash_aliases file
 alias aliasupdate='./aliasupdate.sh'
@@ -124,8 +150,15 @@ alias pub6='curl https://ip6only.me/api/ ; echo;'
 ###	find public IPv6 adress
 ###	see:	https://ip6only.me/
 ###	NOTE:	Lack of IPv6 connectivity will result in a 404 error!
+function udpup() { sudo nmap -sU -p $@; }
+###	Check if service on host & port reachable via UDP
+###	it needs to be written port host [i.e. 80 host.domain.example]
+function tcpup() { sudo nmap -sT -p $@; }
+###	Check if service on host & port is reachable via TCP
+###	it needs to be written port host [i.e. 9001 host.domain.example]
 
 ###	---
+
 
 ##	Distro-Specific Parts
 ###	Ubuntu
@@ -133,4 +166,62 @@ alias ubdate='sudo apt-get update'
 alias ubgrade='sudo apt-get dist-upgrade && sudo apt-get autoremove && sudo apt-get autoclean && sudo snap refresh'
 ###	Update the System and Packages on Ubuntu - based distros
 
+
 ###	---
+
+
+##	VirusTotal API functions
+####	These are subject to the terms of Service for VirusTotal and subsequent account limits.
+#####	Please see: https://docs.virustotal.com/reference/getting-started for details
+###	All functions have been built for & tested with VirusTotal API v3.
+
+###	VirusTotal API Key
+VT_APIKEY="no valid VirusTotal API Key specified!"
+####	You need to enter your VirusTotal API key for authentification with VirusTotal.
+#####   Please see: https://docs.virustotal.com/reference/public-vs-premium-api for terms and conditions.
+####	You get a free API key by signing up for a community account.
+#####	Note that for commercial use and/or more than 500 requests per day and/or more than 4 requests per minute, you need a Premium Account.
+#####	You can find the API Key in your VirusTotal account.
+######	See: https://docs.virustotal.com/reference/authentication for details.
+###	Show VirusTotal API Key
+alias show_vtapikey='echo "$VT_APIKEY"'
+#####	this function will spit out your VirusTotal API Key. If you have none setup, it'll say "no valid VirusTotal API Key specified!"
+######	If your API key is expired/invalidated/... the API of VirusTotal will tell you with a 401 error.
+######	You can out-comment show_vtapikey. It was merely added to help in development.
+alias VT_ID='sha256sum $1 | head -c 64; echo ;'
+###	Get a SHA-256 checksum.
+####	This is used in several functions down the line.
+
+###	Scanning Files
+####	See:	https://docs.virustotal.com/reference/files-scan for details
+function vtscanfile() { curl --request POST --url https://www.virustotal.com/api/v3/files --header 'accept: application/json' --header 'content-type: multipart/form-data' --header 'x-apikey: $VT_APIKEY' "$1" ; }
+###	Scan a regular file: vtscanfile $FILE
+####	Note: File Size is limited to 32MB
+function vtscanzip() { curl --request POST --url https://www.virustotal.com/api/v3/files --header 'accept: application/json' --header 'content-type: multipart/form-data' --header 'x-apikey: $VT_APIKEY'--form 'password=$2' "$1" ; }
+###	Scan an encrypted ZIP file: vtscanzip $FILE $PASSWORD
+####	NOTE: File Size is limited to 32MB
+function vtuploadurl() { curl --request GET --url https://www.virustotal.com/api/v3/files/upload_url --header 'accept: application/text' --header 'x-apikey: $VT_APIKEY'; "$1"; }
+###	Request an upload URL for uploading a file >32MB size, to a maximum of 650MB size.
+####	This is generally disrecommended for various reasons.
+####	See:	https://docs.virustotal.com/reference/files-upload-url for details.
+function vtscanurl() { $1 > $url; curl --request POST --url https://www.virustotal.com/api/v3/urls --header 'accept: application/json' --header 'content-type: application/x-www-form-urlencoded' \ --header 'x-apikey: $VT_APIKEY' \ --data 'url=$url' ; }
+###	Request an URL scan
+####	See:	https://docs.virustotal.com/reference/scan-url for details.
+function vtscandomain() { $1 > $domain; curl --request GET --url https://www.virustotal.com/api/v3/domains/$domain --header 'accept: application/json' --header 'x-apikey: $VT_APIKEY'; }
+###	Request a Domain Report
+####	See:	https://docs.virustotal.com/reference/domain-info for details.
+function vtscanip() { $1 > $ip; curl --request GET --url https://www.virustotal.com/api/v3/ip_addresses/$ip --header 'accept: application/json' --header 'x-apikey: $APIKEY'; }
+###	Request a IP Report
+####	See:	https://docs.virustotal.com/reference/ip-info for details.
+function vtanalyze() { VT_ID $1 > $id; curl --request GET --url https://www.virustotal.com/api/v3/analyses/$id --header 'accept: application/json' --header 'x-apikey: $VT_APIKEY'; }
+###	Request a file analysis
+####	This may also include previous analysis done before.
+####	See:	https://docs.virustotal.com/reference/analysis for details.
+function vtrescan() { VT_ID $1 > $id; curl --request POST --url https://www.virustotal.com/api/v3/files/$id/analyse --header 'accept: application/json' --header 'x-apikey: $VT_APIKEY'; }
+###	Request a rescan of a file that has been scanned.
+####	Caution: This is disrecommend.
+####	See:	https://docs.virustotal.com/reference/files-analyse for details.
+function vtreport() { VT_ID $1 > $id; curl --request GET --url https://www.virustotal.com/api/v3/files/$id --header 'accept: application/json' --header 'x-apikey: $VT_APIKEY'; }
+###	Get a file Report based off it'checksum.
+####	This will take any report available.
+####	See:	https://docs.virustotal.com/reference/file-info	for details.
