@@ -45,13 +45,21 @@ alias pw30='< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-30};echo;'
 alias pw16='</dev/urandom tr -dc '0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz@!?~+#-_' | head -c16; echo;'
 ###	14 digits
 alias pw14='< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-14};echo;'
-##	Random 8 digit One Time Password
+###	Random 8 digit One Time Password
 alias rotp='< /dev/urandom tr -dc A-Z-a-z-0-9 | head -c${1:-8};echo;'
-##	Random 8 digit TAN
+###	Random 8 digit TAN
 alias rtan='< /dev/urandom tr -dc 0-9 | head -c${1:-8};echo;'
-##	Random 4 digit PIN
+###	Random 4 digit PIN
 alias rpin='< /dev/urandom tr -dc 0-9 | head -c${1:-4};echo;'
 ###	see:	https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/
+
+###	Alternative Method
+###	See:	https://osxdaily.com/2011/05/10/generate-random-passwords-command-line/ for details
+alias pw127='openssl rand -base64 127 | head -c 127; echo'
+alias pw63='openssl rand -base64 63 | head -c 63; echo'
+alias pw31='openssl rand -base64 31 | head -c 31; echo'
+alias pw15='openssl rand -base64 15 | head -c 15; echo'
+alias pw7='openssl rand -base64 7 | head -c 7; echo'
 
 
 ###	---
