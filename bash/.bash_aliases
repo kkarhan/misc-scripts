@@ -68,6 +68,13 @@ function rpas() { < /dev/urandom tr -dc '0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnO
 function rnum() { < /dev/urandom tr -dc 0-9 | head -c "$1"; echo; }
 function spas() { openssl rand -base64 "$1" | head -c "$1"; echo; }
 
+###	Bad Speudorandom Generators
+alias pr128='unixtime | sha512sum | head -c 128; echo;'
+alias pr64='unixtime | sha256sum | head -c 64; echo;'
+alias pr40='unixtime | sha1sum | head -c 40; echo;'
+alias pr32='unixtime | md5sum | head -c 32; echo;'
+####	Using unixtime instead of date for transparency.
+
 ###	---
 
 
