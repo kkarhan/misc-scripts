@@ -85,6 +85,8 @@ function sha1() { sha1sum "$1" | head -c 40; echo; }
 ###	SHA-1 Checksum
 function sha256() { sha256sum "$1" | head -c 64; echo; }
 ###	SHA-256 Checksum
+function sha512() { sha512sum "$1" | head -c 128; echo; }
+###	SHA-512 Checksum
 
 
 ###	---
