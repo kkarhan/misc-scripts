@@ -61,6 +61,12 @@ alias pw31='openssl rand -base64 31 | head -c 31; echo'
 alias pw15='openssl rand -base64 15 | head -c 15; echo'
 alias pw7='openssl rand -base64 7 | head -c 7; echo'
 
+###	More flexible option
+function shex() { openssl rand -hex "$1" | head -c "$1"; echo; }
+function rpaw() { < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c "$1"; echo; }
+function rpas() { < /dev/urandom tr -dc '0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz@!?~+#-_' | head -c "$1"; echo; }
+function rnum() { < /dev/urandom tr -dc 0-9 | head -c "$1"; echo; }
+function spas() { openssl rand -base64 "$1" | head -c "$1"; echo; }
 
 ###	---
 
