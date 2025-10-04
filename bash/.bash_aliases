@@ -208,6 +208,8 @@ VT_APIKEY="no valid VirusTotal API Key specified!"
 #####	Login on https://virustotal.com/gui and open up https://www.virustotal.com/gui/my-apikey and look at the *"API Key"* box.
 #####	You can copy that API Key from it.
 ######	See: https://docs.virustotal.com/reference/authentication for details.
+#####	You may also want to consider VirusTotal's CLI tool as well.
+######	See: https://github.com/VirusTotal/vt-cli for details on that one.
 ###	Show VirusTotal API Key
 alias show_vtapikey='echo "$VT_APIKEY"'
 #####	this function will spit out your VirusTotal API Key. If you have none setup, it'll say "no valid VirusTotal API Key specified!"
