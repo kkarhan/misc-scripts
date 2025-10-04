@@ -205,6 +205,8 @@ VT_APIKEY="no valid VirusTotal API Key specified!"
 ####	You get a free API key by signing up for a community account.
 #####	Note that for commercial use and/or more than 500 requests per day and/or more than 4 requests per minute, you need a Premium Account.
 #####	You can find the API Key in your VirusTotal account.
+#####	Login on https://virustotal.com/gui and open up https://www.virustotal.com/gui/my-apikey and look at the *"API Key"* box.
+#####	You can copy that API Key from it.
 ######	See: https://docs.virustotal.com/reference/authentication for details.
 ###	Show VirusTotal API Key
 alias show_vtapikey='echo "$VT_APIKEY"'
