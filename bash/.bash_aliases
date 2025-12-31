@@ -179,6 +179,12 @@ function udpup() { sudo nmap -sU -p $@; }
 function tcpup() { sudo nmap -sT -p $@; }
 ###	Check if service on host & port is reachable via TCP
 ###	it needs to be written port host [i.e. 9001 host.domain.example]
+alias qst='peedtest -p no -P 8 -b --selection details -v'
+###	Quick Speed Test
+###	Requires speedtest-cli installed
+###	see: https://www.speedtest.net/apps/cli
+###	Speedtest is subject to the license terms and terms of use by Speedtest.net
+###	see: https://www.speedtest.net/about/terms
 
 ###	---
 
