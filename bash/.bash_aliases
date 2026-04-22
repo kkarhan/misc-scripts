@@ -112,11 +112,11 @@ function verify() { cat $1 | enc sig verify --key $2 -- signature $1.sig ; }
 function keygen() { enc key generate -b 8192 -c "$1" -e "$2" -n "$3" --ttl "128y" | enc armor > $2.seckey.asc && echo '$2.seckey.asc generated!' && cat $2.seckey.asc | enc dearmor | enc key public | enc armor > $2.pubkey.asc && echo 'pubkey is $2.pubkey.asc' ; }
 ###	Generates public-private keypair with comment $1, email $2 name $3 and shoves that into $2.seckey.asc
 ###	See:	https://github.com/life4/enc#generate-a-key
-### And also extracts public key and shoves it into a seperate file: $2.pubkey.asc
-###	See:	https://github.com/life4/enc#use-public-key-generate-and-encrypt
+####	And also extracts public key and shoves it into a seperate file: $2.pubkey.asc
+####	See:	https://github.com/life4/enc#use-public-key-generate-and-encrypt
 function mount-luks() { sudo cryptsetup luksOpen /dev/$1 $2 && sudo mount /dev/mapper/$2 /media/$USER/$2 && echo '/dev/$1 has been mounted on /media/$USER/$2' ; }
 ###	Mount & unlock LUKS partition named $2 located on /dev/$1 to /media/$USER/$2
-###	This is vital for encrypted drives on servers that won't e automounted for security reasons!
+###	This is vital for encrypted drives on servers that won't be automounted for security reasons!
 
 
 ###	---
@@ -137,10 +137,10 @@ function notify() { curl -d "$1" ntfy.sh/$2 ; }
 ##	Download Videos and Audio
 function mp3dl() { yt-dlp -x --audio-format mp3 "$@"; }
 ###	download a video's audio as mp3
-###	requires yt-dlp & ffmpeg to be installed
+####	requires yt-dlp & ffmpeg to be installed
 function vdl() { yt-dlp "$@"; }
 ###	download a video
-###	requires yt-dlp to be installed
+####	requires yt-dlp to be installed
 
 
 ###	---
@@ -159,8 +159,8 @@ function isup() { ping -a -b -c 1 -D "$@"; }
 alias pubip='curl https://wtfismyip.com/text ; echo;'
 ###	find public IP adress
 ###	NOTE:	Lack of connectivity will result in a 404 error!
-###	alternative Service:	ipinfo.io/ip
-###	see:	https://stackoverflow.com/questions/14594151/methods-to-detect-public-ip-address-in-bash/14594304#14594304
+####	alternative Service:	ipinfo.io/ip
+####	see:	https://stackoverflow.com/questions/14594151/methods-to-detect-public-ip-address-in-bash/14594304#14594304
 alias pub4='curl http://ip4only.me/api/ ; echo;'
 ###	find public IPv4 adress
 ###	see:	http://ip4only.me/
@@ -181,10 +181,10 @@ function tcpup() { sudo nmap -sT -p $@; }
 ###	it needs to be written port host [i.e. 9001 host.domain.example]
 alias qst='speedtest -p no -P 8 -b --selection details -v'
 ###	Quick Speed Test
-###	Requires speedtest-cli installed
-###	see: https://www.speedtest.net/apps/cli
-###	Speedtest is subject to the license terms and terms of use by Speedtest.net
-###	see: https://www.speedtest.net/about/terms
+####	Requires speedtest-cli installed
+####	see: https://www.speedtest.net/apps/cli
+#####	Speedtest is subject to the license terms and terms of use by Speedtest.net
+#####	see: https://www.speedtest.net/about/terms
 function tracer() {traceroute -I -m 255 -q 1 --resolve-hostnames -w 1 "$@"; }
 ###	Traceroute with extras
 function traces() {traceroute -M udp -m 255 -p 22 -q 1 --resolve-hostnames -w 1 "$@"; }
