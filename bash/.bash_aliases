@@ -185,17 +185,17 @@ alias qst='speedtest -p no -P 8 -b --selection details -v'
 ####	see: https://www.speedtest.net/apps/cli
 #####	Speedtest is subject to the license terms and terms of use by Speedtest.net
 #####	see: https://www.speedtest.net/about/terms
-function tracer() {traceroute -I -m 255 -q 1 --resolve-hostnames -w 1 $@ ;}
+function tracer() { traceroute -I -m 255 -q 1 --resolve-hostnames -w 1 $@ ; }
 ###	Traceroute with extras
-function traces() {traceroute -M udp -m 255 -p 22 -q 1 --resolve-hostnames -w 1 $@; }
+function traces() { traceroute -M udp -m 255 -p 22 -q 1 --resolve-hostnames -w 1 $@; }
 ###	Traceroute to SSH
-function traceh() {traceroute -I -m 255 -p 443 -q 1 --resolve-hostnames -w 1 $@; }
+function traceh() { traceroute -I -m 255 -p 443 -q 1 --resolve-hostnames -w 1 $@; }
 ###	Traceroute to HTTPS
-function traceo() {traceroute -I -m 255 -p 80 -q 1 --resolve-hostnames -w 1 $@; }
+function traceo() { traceroute -I -m 255 -p 80 -q 1 --resolve-hostnames -w 1 $@; }
 ###	Traceroute to HTTP
-function traceo() {traceroute -I -m 255 -p 21 -q 1 --resolve-hostnames -w 1 $@; }
+function traceo() { traceroute -I -m 255 -p 21 -q 1 --resolve-hostnames -w 1 $@; }
 ###	Traceroute to HTTP
-function tracel() {traceroute -I -m 255 -q 1 --resolve-hostnames -w 60 $@; }
+function tracel() { traceroute -I -m 255 -q 1 --resolve-hostnames -w 60 $@; }
 ###	Traceroute in slow/laggy networks
 
 
