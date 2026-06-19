@@ -1,0 +1,40 @@
+#	toybox shell aliase
+##	This is a sample submission for development of alias support in toybox's shell (toysh).
+###	It is based upon an existing .bash_aliases file:
+###	See https://github.com/kkarhan/misc-scripts/blob/master/bash/.bash_aliases for that.
+
+##	Minor shortcuts to improve speed
+alias cls='clear'
+alias dir='ls -ahl'
+function ding() { echo -ne '\007'; }
+###	Create a Beep [will only make a system beep if output is redirected to a local or unused console]
+alias unixtime='date +%s'
+###	Output Unixtime
+
+##   Connectivity Diagnostics
+function isup() { ping -a -b -c 1 -D "$@"; }
+###	Single Ping attempt to a specific host which has to be specified i.e. "isup toybox.net"
+###	This is done to see if a host "is up"...
+alias pubip='wget -qO-  https://wtfismyip.com/text'
+###	find public IP adress
+###	NOTE:	Lack of connectivity will result in a 404 error!
+###	alternative Service:	ipinfo.io/ip
+###	see:	https://stackoverflow.com/questions/14594151/methods-to-detect-public-ip-address-in-bash/14594304#14594304
+####	Originally used curl, rewritten to use wget with identical results
+####	see:	https://superuser.com/questions/321240/how-do-you-redirect-wget-response-to-standard-out/977047#977047
+
+##	Post something to a server (i.e. ntfy.sh):
+function notify() { wget --method=PUT --body-data="$2" ntfy.sh/$1 ; }
+###	Sends message ""$2" to ntfy.sh/$1
+###	See:	https://docs.ntfy.sh/publish
+####	Originally used curl, but was rewritten to use wget PUT method
+####	See:	https://superuser.com/questions/130009/how-can-i-do-a-http-put-with-wget/828631#828631
+
+##	Random Password Generator Functions
+###	random UUID
+alias uuid='cat /proc/sys/kernel/random/uuid'
+###	64 digits
+alias pw64='</dev/urandom tr -dc '0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz@!?~+#-_' | head -c64; echo;'
+###	Random 8 digit TAN
+alias rtan='< /dev/urandom tr -dc 0-9 | head -c${1:-8};echo;'
+###	see:	https://www.howtogeek.com/howto/30184/10-ways-to-generate-a-random-password-from-the-command-line/
