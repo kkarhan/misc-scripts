@@ -118,6 +118,17 @@ function mount-luks() { sudo cryptsetup luksOpen /dev/$1 $2 && sudo mount /dev/m
 ###	Mount & unlock LUKS partition named $2 located on /dev/$1 to /media/$USER/$2
 ###	This is vital for encrypted drives on servers that won't be automounted for security reasons!
 
+##	OpenSSL - based alternative functions
+###	These use passwords for AES-256 - CBC encryption.
+####	See:	https://linuxconfig.org/using-openssl-to-encrypt-messages-and-files-on-linux for details
+function sencrypt() { openssl enc -aes-256-cbc -salt -pbkdf2 -binary -in "$1" -out "$1".enc -pass pass:"$2" }
+####	Encrypts file $1 with password $2 and saves it as $1.enc
+function senc() { openssl enc -aes-256-cbc -salt -pbkdf2 -binary -in "$1" -out "$1".enc }
+####	Interactive version asking for a password
+function sdecrypt() { openssl enc -aes-256-cbc -d -salt -pbkdf2 -binary -in "$1" -out "$1".dec -pass pass:"$2" }
+####	Decrypts file $1 with password $2 and saves it as $1.dec
+function sdec() { openssl enc -aes-256-cbc -d -salt -pbkdf2 -binary -in "$1" -out "$1".dec }
+####	Interactive version asking for a password
 
 ###	---
 
